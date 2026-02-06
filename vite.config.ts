@@ -5,10 +5,18 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
-      base: './',  // <-- Add this line for Netlify relative paths
+      base: './',
       server: {
         port: 3000,
         host: '0.0.0.0',
+        proxy: {
+          '/api/': {
+            target: 'http://localhost:5000',
+            changeOrigin: true,
+            secure: false,
+            rewrite: (path) => path.replace(/^\/api/, ''),
+          },
+        },
       },
       plugins: [react()],
       define: {

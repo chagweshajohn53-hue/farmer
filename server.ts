@@ -8,7 +8,16 @@ dotenv.config();
 
 const app = express();
 app.use(express.json({ limit: '10mb' }));
-app.use(cors());
+// Configure CORS to allow requests from the frontend
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:5173',
+    'http://localhost:5174'
+  ],
+  credentials: true
+}));
 
 // PostgreSQL connection
 const pool = new Pool({

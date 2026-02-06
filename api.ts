@@ -1,10 +1,10 @@
 
 import { Product, PaymentRecord, GraduateProfile, PlatformConfig, User, AuthResponse, Dispute, AuditLog } from './types';
 
-// Use environment port or default to 5000 for local dev
-const API_BASE = window.location.hostname === 'localhost' 
+// Use environment variable for production backend API or default to local dev
+const API_BASE = process.env.REACT_APP_API_URL || (window.location.hostname === 'localhost' 
   ? 'http://localhost:5000/api' 
-  : '/api';
+  : '/api');  // This will be proxied by Netlify to your backend server
 
 const handleResponse = async (res: Response) => {
   if (!res.ok) {
